@@ -400,6 +400,8 @@ CMakeFiles/content_creators_manger.dir/mainwindow.cpp.obj: \
  C:/Qt/6.7.3/mingw_64/include/QtCore/qlist.h \
  C:/Qt/6.7.3/mingw_64/include/QtWidgets/QStackedWidget \
  C:/Qt/6.7.3/mingw_64/include/QtWidgets/qstackedwidget.h \
+ C:/Qt/6.7.3/mingw_64/include/QtCore/QSettings \
+ C:/Qt/6.7.3/mingw_64/include/QtCore/qsettings.h \
  C:/Users/SELIMF~1/DOCUME~1/CONTEN~1/build/DESKTO~1/CONTEN~1/include/ui_mainwindow.h \
  C:/Qt/6.7.3/mingw_64/include/QtCore/QVariant \
  C:/Qt/6.7.3/mingw_64/include/QtCore/qvariant.h \

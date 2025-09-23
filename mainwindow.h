@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QList>
 #include <QStackedWidget>
+#include <QSettings>
 
     QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,6 +43,10 @@ private slots:
 private:
     void updateTable();
     bool isNameUnique(const QString &name, const QString &oldName = "");
+private:
+    void loadTheme();
+    void saveTheme();
+
 
     Ui::MainWindow *ui;
     QLineEdit *nameEdit;

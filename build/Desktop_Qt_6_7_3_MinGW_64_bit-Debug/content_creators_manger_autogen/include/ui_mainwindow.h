@@ -34,13 +34,13 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QHBoxLayout *mainLayout;
+    QWidget *sidebar;
     QVBoxLayout *sidebarLayout;
     QPushButton *sidebarButton;
     QPushButton *sidebarButton1;
     QPushButton *sidebarButton2;
     QPushButton *sidebarButton3;
     QPushButton *sidebarButton4;
-    QPushButton *sidebarButton5;
     QSpacerItem *verticalSpacer;
     QStackedWidget *stackedWidget;
     QWidget *contentCreatorPage;
@@ -88,7 +88,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1000, 532);
+        MainWindow->resize(788, 457);
         MainWindow->setStyleSheet(QString::fromUtf8("\n"
 "QMainWindow {\n"
 "    background-color: #FFFFFF;\n"
@@ -170,11 +170,12 @@ public:
 "}\n"
 "QWidget#sidebar {\n"
 "    background-col"
-                        "or: #7D4FEE;\n"
-"    border-radius: 10px 0 0 10px;\n"
+                        "or: #C49FFF;\n"
+"    border-radius: 10px 10px 10px 10px;\n"
+"    \n"
 "}\n"
 "QPushButton#sidebarButton {\n"
-"    background-color: #7D4FEE;\n"
+"    background-color: #00000;\n"
 "    color: #FFFFFF;\n"
 "    border: none;\n"
 "    border-radius: 10px;\n"
@@ -184,52 +185,62 @@ public:
 "    text-align: left;\n"
 "}\n"
 "QPushButton#sidebarButton:hover {\n"
-"    background-color: #FFFFFF;\n"
+"    background-color: #ffffffff;\n"
 "    color: #7D4FEE;\n"
-"}\n"
+"    border: 2px solid #7D4FEE;}\n"
 "   "));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         mainLayout = new QHBoxLayout(centralwidget);
         mainLayout->setObjectName("mainLayout");
-        sidebarLayout = new QVBoxLayout();
+        sidebar = new QWidget(centralwidget);
+        sidebar->setObjectName("sidebar");
+        sidebar->setStyleSheet(QString::fromUtf8("background-color: #C49FFF;\n"
+"border radius:10px;"));
+        sidebarLayout = new QVBoxLayout(sidebar);
         sidebarLayout->setObjectName("sidebarLayout");
-        sidebarButton = new QPushButton(centralwidget);
+        sidebarButton = new QPushButton(sidebar);
         sidebarButton->setObjectName("sidebarButton");
+        sidebarButton->setStyleSheet(QString::fromUtf8(""));
 
         sidebarLayout->addWidget(sidebarButton);
 
-        sidebarButton1 = new QPushButton(centralwidget);
+        sidebarButton1 = new QPushButton(sidebar);
         sidebarButton1->setObjectName("sidebarButton1");
+        sidebarButton1->setStyleSheet(QString::fromUtf8(""));
 
         sidebarLayout->addWidget(sidebarButton1);
 
-        sidebarButton2 = new QPushButton(centralwidget);
+        sidebarButton2 = new QPushButton(sidebar);
         sidebarButton2->setObjectName("sidebarButton2");
+        sidebarButton2->setStyleSheet(QString::fromUtf8(""));
 
         sidebarLayout->addWidget(sidebarButton2);
 
-        sidebarButton3 = new QPushButton(centralwidget);
+        sidebarButton3 = new QPushButton(sidebar);
         sidebarButton3->setObjectName("sidebarButton3");
+        sidebarButton3->setStyleSheet(QString::fromUtf8(""));
 
         sidebarLayout->addWidget(sidebarButton3);
 
-        sidebarButton4 = new QPushButton(centralwidget);
+        sidebarButton4 = new QPushButton(sidebar);
         sidebarButton4->setObjectName("sidebarButton4");
+        sidebarButton4->setStyleSheet(QString::fromUtf8(""));
 
         sidebarLayout->addWidget(sidebarButton4);
-
-        sidebarButton5 = new QPushButton(centralwidget);
-        sidebarButton5->setObjectName("sidebarButton5");
-
-        sidebarLayout->addWidget(sidebarButton5);
 
         verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
 
         sidebarLayout->addItem(verticalSpacer);
 
+        sidebarLayout->setStretch(0, 1);
+        sidebarLayout->setStretch(1, 1);
+        sidebarLayout->setStretch(2, 1);
+        sidebarLayout->setStretch(3, 1);
+        sidebarLayout->setStretch(4, 1);
+        sidebarLayout->setStretch(5, 1);
 
-        mainLayout->addLayout(sidebarLayout);
+        mainLayout->addWidget(sidebar);
 
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName("stackedWidget");
@@ -238,6 +249,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
         stackedWidget->setSizePolicy(sizePolicy);
+        stackedWidget->setStyleSheet(QString::fromUtf8(""));
         contentCreatorPage = new QWidget();
         contentCreatorPage->setObjectName("contentCreatorPage");
         contentCreatorLayout = new QVBoxLayout(contentCreatorPage);
@@ -446,12 +458,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Content Creator Manager", nullptr));
-        sidebarButton->setText(QCoreApplication::translate("MainWindow", "Management", nullptr));
-        sidebarButton1->setText(QCoreApplication::translate("MainWindow", "Finance", nullptr));
-        sidebarButton2->setText(QCoreApplication::translate("MainWindow", "Content Creator", nullptr));
-        sidebarButton3->setText(QCoreApplication::translate("MainWindow", "Sponsor", nullptr));
-        sidebarButton4->setText(QCoreApplication::translate("MainWindow", "Deal", nullptr));
-        sidebarButton5->setText(QCoreApplication::translate("MainWindow", "Employee", nullptr));
+        sidebarButton->setText(QCoreApplication::translate("MainWindow", "Finance", nullptr));
+        sidebarButton1->setText(QCoreApplication::translate("MainWindow", "Content Creator", nullptr));
+        sidebarButton2->setText(QCoreApplication::translate("MainWindow", "Sponsor", nullptr));
+        sidebarButton3->setText(QCoreApplication::translate("MainWindow", "Deal", nullptr));
+        sidebarButton4->setText(QCoreApplication::translate("MainWindow", "Employee", nullptr));
         label_search->setText(QCoreApplication::translate("MainWindow", "Search:", nullptr));
         searchEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Search by name or platform", nullptr));
         themeButton->setText(QCoreApplication::translate("MainWindow", "Dark Theme", nullptr));

@@ -108,6 +108,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::handleAddButtonClicked()
 {
     if (!nameEdit || !contentTypeEdit || !platformCombo || !subscribersSpin || !creatorTable) {
@@ -264,9 +265,23 @@ void MainWindow::handleExportButtonClicked()
     QMessageBox::information(this, "Success", "Exported to creators_export.csv");
 }
 
-void MainWindow::handleThemeButtonClicked()
-{
+void MainWindow::loadTheme() {
+    QSettings settings("MyCompany", "ContentCreatorManager");
+    darkTheme = settings.value("darkTheme", false).toBool();
+    setProperty("darkTheme", darkTheme);
+    style()->unpolish(this);
+    style()->polish(this);
+    if (themeButton) themeButton->setText(darkTheme ? "Light Theme" : "Dark Theme");
+}
+
+void MainWindow::saveTheme() {
+    QSettings settings("MyCompany", "ContentCreatorManager");
+    settings.setValue("darkTheme", darkTheme);
+}
+
+void MainWindow::handleThemeButtonClicked() {
     darkTheme = !darkTheme;
+    saveTheme();
     setProperty("darkTheme", darkTheme);
     style()->unpolish(this);
     style()->polish(this);
@@ -274,7 +289,6 @@ void MainWindow::handleThemeButtonClicked()
         themeButton->setText(darkTheme ? "Light Theme" : "Dark Theme");
     }
 }
-
 void MainWindow::handleClearButtonClicked()
 {
     if (nameEdit) nameEdit->clear();
@@ -293,18 +307,24 @@ void MainWindow::updateTable()
 
     creatorTable->setRowCount(0);
     QString search = searchEdit ? searchEdit->text().toLower() : "";
-    for (int i = 0; i < creators.size(); i++) {
+    QList<Creator> filteredCreators = creators; // Create a copy to sort
+    // Sort by subscribers in descending order
+    std::sort(filteredCreators.begin(), filteredCreators.end(), [](const Creator& a, const Creator& b) {
+        return a.subscribers > b.subscribers;
+    });
+
+    for (int i = 0; i < filteredCreators.size(); i++) {
         if (!search.isEmpty() &&
-            !creators[i].name.toLower().contains(search) &&
-            !creators[i].platform.toLower().contains(search)) {
+            !filteredCreators[i].name.toLower().contains(search) &&
+            !filteredCreators[i].platform.toLower().contains(search)) {
             continue;
         }
         int row = creatorTable->rowCount();
         creatorTable->insertRow(row);
-        creatorTable->setItem(row, 0, new QTableWidgetItem(creators[i].name));
-        creatorTable->setItem(row, 1, new QTableWidgetItem(creators[i].platform));
-        creatorTable->setItem(row, 2, new QTableWidgetItem(QString::number(creators[i].subscribers)));
-        creatorTable->setItem(row, 3, new QTableWidgetItem(creators[i].contentType));
+        creatorTable->setItem(row, 0, new QTableWidgetItem(filteredCreators[i].name));
+        creatorTable->setItem(row, 1, new QTableWidgetItem(filteredCreators[i].platform));
+        creatorTable->setItem(row, 2, new QTableWidgetItem(QString::number(filteredCreators[i].subscribers)));
+        creatorTable->setItem(row, 3, new QTableWidgetItem(filteredCreators[i].contentType));
     }
 }
 
@@ -317,3 +337,4 @@ bool MainWindow::isNameUnique(const QString &name, const QString &oldName)
     }
     return true;
 }
+

@@ -121,14 +121,14 @@ QPushButton#sidebarButton:hover {
        <string notr="true">background-color: #C49FFF;
 border radius:10px;</string>
       </property>
-      <layout class="QVBoxLayout" name="sidebarLayout" stretch="1,1,1,1,1,1">
+      <layout class="QVBoxLayout" name="sidebarLayout" stretch="0,1,1,1,1,1">
        <item>
         <widget class="QPushButton" name="sidebarButton">
          <property name="styleSheet">
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>Finance</string>
+          <string>Content Creator</string>
          </property>
         </widget>
        </item>
@@ -138,7 +138,7 @@ border radius:10px;</string>
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>Content Creator</string>
+          <string>Finance</string>
          </property>
         </widget>
        </item>
